@@ -39,6 +39,10 @@ ruleTester.run('align-requires', rule, {
         "const A = require('a')",
         "const ABC = require('abc')"
       ]),
+      output: code([
+        "const A   = require('a')",
+        "const ABC = require('abc')"
+      ]),
       errors: [{ message: 'This group of requires is not aligned' }]
     }
   ]
