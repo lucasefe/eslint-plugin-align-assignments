@@ -38,7 +38,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
   "rules": {
-    "align-assignments/align-assignments": [2, { requiresOnly: false } ]
+    "align-assignments/align-assignments": [2, { "requiresOnly": false } ]
   }
 }
 ```
