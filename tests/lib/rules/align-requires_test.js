@@ -28,6 +28,12 @@ ruleTester.run('align-requires', rule, {
         'const ABC = require()',
         'const A   = require()'
       ])
+    },
+    {
+      code: code([
+        'const ABC = require()',
+        'const   A = require()'
+      ])
     }
   ],
   invalid: [
@@ -41,6 +47,26 @@ ruleTester.run('align-requires', rule, {
         "const ABC = require('abc')"
       ]),
       errors: [{ message: 'This group of requires is not aligned' }]
+    },
+    {
+      code: code([
+        "const A = require('a')",
+        "const ABC = require('abc')",
+        "",
+        "const { func } = require('a')",
+        "const ss = require('abc')"
+      ]),
+      output: code([
+        "const A   = require('a')",
+        "const ABC = require('abc')",
+        "",
+        "const { func } = require('a')",
+        "const ss       = require('abc')"
+      ]),
+      errors: [
+        { message: 'This group of requires is not aligned' },
+        { message: 'This group of requires is not aligned' }
+      ]
     }
   ]
 });
