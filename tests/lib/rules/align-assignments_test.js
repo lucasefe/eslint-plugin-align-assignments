@@ -45,11 +45,11 @@ ruleTester.run('align-assignments', rule, {
   invalid: [
     {
       code: code([
-        "const A = require('a')",
+        "const A = require('a');",
         "const ABC = require('abc')"
       ]),
       output: code([
-        "const A   = require('a')",
+        "const A   = require('a');",
         "const ABC = require('abc')"
       ]),
       errors: [{ message: 'This group of assignments is not aligned' }]
@@ -64,6 +64,21 @@ ruleTester.run('align-assignments', rule, {
         "const ABC = 1"
       ]),
       errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code: code([
+        "const a = require('a')",
+        "const bbb   = require('abc')",
+        "const cc         = require('abc')"
+      ]),
+      output: code([
+        "const a   = require('a')",
+        "const bbb = require('abc')",
+        "const cc  = require('abc')"
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
     },
     {
       code: code([
@@ -131,8 +146,8 @@ ruleTester.run('align-assignments', rule, {
       code: code([
         'const ABC = require()',
         'const A = 1',
-        'const hh  = require()',
-        'const H   = require()'
+        'const hh = require()',
+        'const H  = require()'
       ])
     }
   ],
