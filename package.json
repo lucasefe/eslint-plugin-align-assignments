@@ -4,6 +4,7 @@
   "author": "Lucas Florio <lucasefe@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/lucasefe/eslint-plugin-align-assignments",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/lucasefe/eslint-plugin-sort-align-assignments"
@@ -11,5 +12,8 @@
   "devDependencies": {
     "eslint": "^5.9.0",
     "mocha": "^5.2.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=0.8.0"
   }
 }
