@@ -1,5 +1,5 @@
 /**
- * @fileoverview align-requires
+ * @fileoverview align-assignments
  * @author Lucas Florio
  */
 
@@ -9,7 +9,7 @@
 // Requirements
 // ------------------------------------------------------------------------------
 
-const rule = require('../../../lib').rules['align-requires'];
+const rule = require('../../../lib').rules['align-assignments'];
 
 
 const RuleTester = require('eslint').RuleTester;
@@ -21,7 +21,7 @@ const RuleTester = require('eslint').RuleTester;
 const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2017 } });
 
 
-ruleTester.run('align-requires', rule, {
+ruleTester.run('align-assignments', rule, {
   valid: [
     {
       code: code([
