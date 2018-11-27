@@ -108,6 +108,55 @@ ruleTester.run('align-assignments', rule, {
 });
 
 
+ruleTester.run('align-assignments', rule, {
+  valid: [
+    {
+      options: [ { requiresOnly: true } ],
+      code: code([
+        'const ABC = require()',
+        'const A = 1'
+      ])
+    },
+    {
+      options: [ { requiresOnly: true } ],
+      code: code([
+        'const ABC = require()',
+        'const hh  = require()',
+        'const H   = require()',
+        'const A = 1'
+      ])
+    },
+    {
+      options: [ { requiresOnly: true } ],
+      code: code([
+        'const ABC = require()',
+        'const A = 1',
+        'const hh  = require()',
+        'const H   = require()'
+      ])
+    }
+  ],
+  invalid: [
+    {
+      options: [ { requiresOnly: true } ],
+      code: code([
+        'const ABC = require()',
+        'const hh = require()',
+        'const H = require()',
+        'const A = 1'
+      ]),
+      output: code([
+        'const ABC = require()',
+        'const hh  = require()',
+        'const H   = require()',
+        'const A = 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    }
+  ]
+});
+
+
 function code(lines) {
   return lines.join('\n');
 }
