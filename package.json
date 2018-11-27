@@ -1,4 +1,13 @@
 {
+  "name": "eslint-plugin-align-assignments",
+  "version": "1.0.0",
+  "author": "Lucas Florio <lucasefe@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/lucasefe/eslint-plugin-align-assignments",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucasefe/eslint-plugin-sort-align-assignments"
+  },
   "devDependencies": {
     "eslint": "^5.9.0",
     "mocha": "^5.2.0"
