@@ -1,6 +1,6 @@
 # eslint-plugin-align-assignments
 
-ESLint rule to enforce sorting of variable declarations in a group of `require()` calls
+ESLint rule to enforce alignment of assignment declarations in a group. 
 
 ## Installation
 
