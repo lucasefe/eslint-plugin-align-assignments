@@ -46,6 +46,17 @@ ruleTester.run('align-assignments', rule, {
         'const ABC = require()',
         'let hola'
       ])
+    },
+    {
+      code: code([
+        'const options = {',
+        '  compress:             true,',
+        '  sourceMap:            {',
+        '    sourceMapURL:       `${mapFilename}?v=${version}`,',
+        '    sourceMapFilename:  filename',
+        '  }',
+        '};'
+      ])
     }
   ],
   invalid: [
@@ -135,6 +146,29 @@ ruleTester.run('align-assignments', rule, {
         'const ABC = require()',
         'let hola',
         'const A   = require()'
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
+    },
+    {
+      code: code([
+        'const options        = {',
+        '  compress:             true,',
+        '  sourceMap:            {',
+        '    sourceMapURL:       `${mapFilename}?v=${version}`,',
+        '    sourceMapFilename:  filename',
+        '  }',
+        '};'
+      ]),
+      output: code([
+        'const options = {',
+        '  compress:             true,',
+        '  sourceMap:            {',
+        '    sourceMapURL:       `${mapFilename}?v=${version}`,',
+        '    sourceMapFilename:  filename',
+        '  }',
+        '};'
       ]),
       errors: [
         { message: 'This group of assignments is not aligned' }
