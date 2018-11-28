@@ -1,6 +1,8 @@
-# eslint-plugin-align-assignments
+# eslint-plugin-align-assignments 
 
 ESLint rule to enforce alignment of assignment declarations in a group. 
+
+[![Build Status](https://travis-ci.org/lucasefe/eslint-plugin-align-assignments.svg?branch=master)](https://travis-ci.org/lucasefe/eslint-plugin-align-assignments)
 
 ## Installation
 
