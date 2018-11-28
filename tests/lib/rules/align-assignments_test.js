@@ -57,6 +57,15 @@ ruleTester.run('align-assignments', rule, {
         '  }',
         '};'
       ])
+    },
+    {
+      // it doesn't align assignments that are not on the first line.
+      code: code([
+        'const options = args.pop();',
+        'const [',
+        '  time',
+        '] = args;'
+      ])
     }
   ],
   invalid: [
@@ -169,6 +178,24 @@ ruleTester.run('align-assignments', rule, {
         '    sourceMapFilename:  filename',
         '  }',
         '};'
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
+    },
+    {
+      // it doesn't align assignments that are not on the first line.
+      code: code([
+        'const options      = args.pop();',
+        'const [',
+        '  time',
+        '] = args;'
+      ]),
+      output: code([
+        'const options = args.pop();',
+        'const [',
+        '  time',
+        '] = args;'
       ]),
       errors: [
         { message: 'This group of assignments is not aligned' }
