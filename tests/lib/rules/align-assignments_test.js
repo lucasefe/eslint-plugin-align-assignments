@@ -66,6 +66,12 @@ ruleTester.run('align-assignments', rule, {
         '  time',
         '] = args;'
       ])
+    },
+    {
+      code: code([
+        'let ABC  = require()',
+        'ABC.name = 12;'
+      ])
     }
   ],
   invalid: [
@@ -90,6 +96,36 @@ ruleTester.run('align-assignments', rule, {
         "const ABC = 1"
       ]),
       errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code: code([
+        "const a = require('a')",
+        "bbb = 'dd'",
+        "ccc.hola = 3",
+      ]),
+      output: code([
+        "const a  = require('a')",
+        "bbb      = 'dd'",
+        "ccc.hola = 3",
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
+    },
+    {
+      code: code([
+        "const a = require('a')",
+        "bbb = 'dd'",
+        "callIt(bbb)",
+      ]),
+      output: code([
+        "const a = require('a')",
+        "bbb     = 'dd'",
+        "callIt(bbb)",
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
     },
     {
       code: code([
