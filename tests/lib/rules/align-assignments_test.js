@@ -72,6 +72,37 @@ ruleTester.run('align-assignments', rule, {
         'let ABC  = require()',
         'ABC.name = 12;'
       ])
+    },
+    {
+      code: code([
+        'ABC.name = 12;',
+        'let ABC  = require()'
+      ])
+    },
+    {
+      code: code([
+        'async function go() {',
+        '  ABC.name  = 9999999999;',
+        '  let fetch = require(8);',
+        '  response  = await fetch({',
+        '    method: "post",',
+        '    url:    `https://webapp.broadly.test/business/${business.id}/customer`,',
+        '    auth:   { bearer: token },',
+        '    json:   {',
+        '      name: {',
+        '        full: "Assaf Arkin"',
+        '      }',
+        '    }',
+        '  });',
+        '}'
+      ])
+    },
+    {
+      code: code([
+        'let ABC  = require()',
+        'ABC.name = 12;',
+        "browser.focus('[name=name]')"
+      ])
     }
   ],
   invalid: [
@@ -89,11 +120,11 @@ ruleTester.run('align-assignments', rule, {
     {
       code: code([
         "const A = require('a')",
-        "const ABC = 1"
+        'const ABC = 1'
       ]),
       output: code([
         "const A   = require('a')",
-        "const ABC = 1"
+        'const ABC = 1'
       ]),
       errors: [{ message: 'This group of assignments is not aligned' }]
     },
@@ -101,12 +132,12 @@ ruleTester.run('align-assignments', rule, {
       code: code([
         "const a = require('a')",
         "bbb = 'dd'",
-        "ccc.hola = 3",
+        'ccc.hola = 3'
       ]),
       output: code([
         "const a  = require('a')",
         "bbb      = 'dd'",
-        "ccc.hola = 3",
+        'ccc.hola = 3'
       ]),
       errors: [
         { message: 'This group of assignments is not aligned' }
@@ -116,12 +147,12 @@ ruleTester.run('align-assignments', rule, {
       code: code([
         "const a = require('a')",
         "bbb = 'dd'",
-        "callIt(bbb)",
+        "browser.focus('[name=name]').value   = 1"
       ]),
       output: code([
-        "const a = require('a')",
-        "bbb     = 'dd'",
-        "callIt(bbb)",
+        "const a                            = require('a')",
+        "bbb                                = 'dd'",
+        "browser.focus('[name=name]').value = 1"
       ]),
       errors: [
         { message: 'This group of assignments is not aligned' }
@@ -146,14 +177,14 @@ ruleTester.run('align-assignments', rule, {
       code: code([
         "const A = require('a')",
         "const ABC = require('abc')",
-        "",
+        '',
         "const { func } = require('a')",
         "const ss       = require('abc')"
       ]),
       output: code([
         "const A   = require('a')",
         "const ABC = require('abc')",
-        "",
+        '',
         "const { func } = require('a')",
         "const ss       = require('abc')"
       ]),
@@ -165,14 +196,14 @@ ruleTester.run('align-assignments', rule, {
       code: code([
         "const A = require('a')",
         "const ABC = require('abc')",
-        "",
+        '',
         "const { func } = require('a')",
         "const ss = require('abc')"
       ]),
       output: code([
         "const A   = require('a')",
         "const ABC = require('abc')",
-        "",
+        '',
         "const { func } = require('a')",
         "const ss       = require('abc')"
       ]),
@@ -183,14 +214,18 @@ ruleTester.run('align-assignments', rule, {
     },
     {
       code: code([
-        'const ABC = require()',
-        'let hola',
-        'const A = require()',
+        'function req() {',
+        '  const ABC = require()',
+        '  let hola',
+        '  const A = require()',
+        '}'
       ]),
       output: code([
-        'const ABC = require()',
-        'let hola',
-        'const A   = require()'
+        'function req() {',
+        '  const ABC = require()',
+        '  let hola',
+        '  const A   = require()',
+        '}'
       ]),
       errors: [
         { message: 'This group of assignments is not aligned' }
@@ -236,6 +271,43 @@ ruleTester.run('align-assignments', rule, {
       errors: [
         { message: 'This group of assignments is not aligned' }
       ]
+    },
+    {
+      code: code([
+        'async function go() {',
+        '  ABC.name = 9999999999;',
+        '  let fetch = require(8);',
+        '  responsividad  = await fetch({',
+        '    method: "post",',
+        '    url:    `https://webapp.broadly.test/business/${business.id}/customer`,',
+        '    auth:   { bearer: token },',
+        '    json:   {',
+        '      name: {',
+        '        full: "Assaf Arkin"',
+        '      }',
+        '    }',
+        '  });',
+        '}'
+      ]),
+      output: code([
+        'async function go() {',
+        '  ABC.name      = 9999999999;',
+        '  let fetch     = require(8);',
+        '  responsividad = await fetch({',
+        '    method: "post",',
+        '    url:    `https://webapp.broadly.test/business/${business.id}/customer`,',
+        '    auth:   { bearer: token },',
+        '    json:   {',
+        '      name: {',
+        '        full: "Assaf Arkin"',
+        '      }',
+        '    }',
+        '  });',
+        '}'
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
     }
   ]
 });
@@ -244,15 +316,15 @@ ruleTester.run('align-assignments', rule, {
 ruleTester.run('align-assignments', rule, {
   valid: [
     {
-      options: [ { requiresOnly: true } ],
-      code: code([
+      options: [{ requiresOnly: true }],
+      code:    code([
         'const ABC = require()',
         'const A = 1'
       ])
     },
     {
-      options: [ { requiresOnly: true } ],
-      code: code([
+      options: [{ requiresOnly: true }],
+      code:    code([
         'const ABC = require()',
         'const hh  = require()',
         'const H   = require()',
@@ -260,8 +332,8 @@ ruleTester.run('align-assignments', rule, {
       ])
     },
     {
-      options: [ { requiresOnly: true } ],
-      code: code([
+      options: [{ requiresOnly: true }],
+      code:    code([
         'const ABC = require()',
         'const A = 1',
         'const hh = require()',
@@ -271,8 +343,8 @@ ruleTester.run('align-assignments', rule, {
   ],
   invalid: [
     {
-      options: [ { requiresOnly: true } ],
-      code: code([
+      options: [{ requiresOnly: true }],
+      code:    code([
         'const ABC = require()',
         'const hh = require()',
         'const H = require()',
