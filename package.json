@@ -10,7 +10,8 @@
     "url": "https://github.com/lucasefe/eslint-plugin-sort-align-assignments"
   },
   "scripts": {
-    "test": "mocha tests/lib/rules/align-assignments_test.js"
+    "test": "mocha tests/lib/rules/align-assignments_test.js",
+    "watch": "mocha -w tests/lib/rules/align-assignments_test.js --reporter=dot"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
