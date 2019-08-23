@@ -103,6 +103,12 @@ ruleTester.run('align-assignments', rule, {
         'ABC.name = 12;',
         "browser.focus('[name=name]')"
       ])
+    },
+    {
+      code: code([
+        'for (let i = outArray.length - 1; i >= 0; i--)',
+        '  out += outArray[i].toString(toBase);'
+      ])
     }
   ],
   invalid: [
