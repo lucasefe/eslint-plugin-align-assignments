@@ -361,6 +361,154 @@ ruleTester.run('align-assignments', rule, {
   ]
 });
 
+ruleTester.run('align-assignments', rule, {
+  valid: [
+    {
+      code:    code([
+        'let A = 1',
+        'A    += 1'
+      ])
+    },
+    {
+      code:    code([
+        'A  = 1',
+        'B += 1'
+      ])
+    },
+    {
+      code:    code([
+        'A   = 1',
+        'B >>= 1'
+      ])
+    },
+    {
+      code:    code([
+        'A    = 1',
+        'B >>>= 1'
+      ])
+    },
+    {
+      code:    code([
+        'A   -= 1',
+        'B >>>= 1',
+        'C    = 1',
+        'D  <<= 1'
+      ])
+    },
+    {
+      code:    code([
+        'A >>>= 1',
+        'B  **= 1',
+        'C  >>= 1',
+        'D  <<= 1',
+        'E   |= 1',
+        'F   ^= 1',
+        'G   &= 1',
+        'H   %= 1',
+        'I   /= 1',
+        'J   *= 1',
+        'K   -= 1',
+        'L   += 1',
+        'M    = 1'
+      ])
+    }
+  ],
+  invalid: [
+    {
+      code:    code([
+        'let A = 0',
+        'A += 1'
+      ]),
+      output:    code([
+        'let A = 0',
+        'A    += 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code:    code([
+        'A = 1',
+        'B += 1'
+      ]),
+      output: code([
+        'A  = 1',
+        'B += 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code:    code([
+        'A = 1',
+        'B >>= 1'
+      ]),
+      output: code([
+        'A   = 1',
+        'B >>= 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code:    code([
+        'A = 1',
+        'B >>>= 1'
+      ]),
+      output: code([
+        'A    = 1',
+        'B >>>= 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code:    code([
+        'A -= 1',
+        'B >>>= 1',
+        'C = 1',
+        'D <<= 1'
+      ]),
+      output: code([
+        'A   -= 1',
+        'B >>>= 1',
+        'C    = 1',
+        'D  <<= 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    },
+    {
+      code:    code([
+        'A >>>= 1',
+        'B **= 1',
+        'C >>= 1',
+        'D <<= 1',
+        'E |= 1',
+        'F ^= 1',
+        'G &= 1',
+        'H %= 1',
+        'I /= 1',
+        'J *= 1',
+        'K -= 1',
+        'L += 1',
+        'M = 1'
+      ]),
+      output: code([
+        'A >>>= 1',
+        'B  **= 1',
+        'C  >>= 1',
+        'D  <<= 1',
+        'E   |= 1',
+        'F   ^= 1',
+        'G   &= 1',
+        'H   %= 1',
+        'I   /= 1',
+        'J   *= 1',
+        'K   -= 1',
+        'L   += 1',
+        'M    = 1'
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    }
+  ]
+});
+
 
 function code(lines) {
   return lines.join('\n');
