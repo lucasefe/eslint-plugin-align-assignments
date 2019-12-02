@@ -19,7 +19,7 @@ $ npm install eslint-plugin-align-assignments --save-dev
 ```
 
 **Note:** If you installed ESLint globally (using the `-g` flag) then you must
-also install `eslint-plugin-align-assignmentss` globally.
+also install `eslint-plugin-align-assignments` globally.
 
 ## Usage
 
