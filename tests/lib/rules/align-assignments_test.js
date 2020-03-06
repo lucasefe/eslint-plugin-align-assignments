@@ -18,7 +18,7 @@ const RuleTester = require('eslint').RuleTester;
 // Tests
 // ------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2017 } });
+const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 7, sourceType: 'module' } });
 
 
 ruleTester.run('align-assignments', rule, {
@@ -81,10 +81,10 @@ ruleTester.run('align-assignments', rule, {
     },
     {
       code: code([
-        'async function go() {',
+        'function go() {',
         '  ABC.name  = 9999999999;',
         '  let fetch = require(8);',
-        '  response  = await fetch({',
+        '  response  = fetch({',
         '    method: "post",',
         '    url:    `https://webapp.broadly.test/business/${business.id}/customer`,',
         '    auth:   { bearer: token },',
@@ -108,6 +108,12 @@ ruleTester.run('align-assignments', rule, {
       code: code([
         'for (let i = outArray.length - 1; i >= 0; i--)',
         '  out += outArray[i].toString(toBase);'
+      ])
+    },
+    {
+      code: code([
+        "export const ABC = 'abc'",
+        "export const A   = 'a'"
       ])
     }
   ],
@@ -280,10 +286,10 @@ ruleTester.run('align-assignments', rule, {
     },
     {
       code: code([
-        'async function go() {',
+        'function go() {',
         '  ABC.name = 9999999999;',
         '  let fetch = require(8);',
-        '  responsividad  = await fetch({',
+        '  responsividad  = fetch({',
         '    method: "post",',
         '    url:    `https://webapp.broadly.test/business/${business.id}/customer`,',
         '    auth:   { bearer: token },',
@@ -296,10 +302,10 @@ ruleTester.run('align-assignments', rule, {
         '}'
       ]),
       output: code([
-        'async function go() {',
+        'function go() {',
         '  ABC.name      = 9999999999;',
         '  let fetch     = require(8);',
-        '  responsividad = await fetch({',
+        '  responsividad = fetch({',
         '    method: "post",',
         '    url:    `https://webapp.broadly.test/business/${business.id}/customer`,',
         '    auth:   { bearer: token },',
@@ -314,7 +320,18 @@ ruleTester.run('align-assignments', rule, {
       errors: [
         { message: 'This group of assignments is not aligned' }
       ]
-    }
+    },
+    {
+      code: code([
+        "export const A = 'a';",
+        "export const ABC = 'abc'"
+      ]),
+      output: code([
+        "export const A   = 'a';",
+        "export const ABC = 'abc'"
+      ]),
+      errors: [{ message: 'This group of assignments is not aligned' }]
+    },
   ]
 });
 
