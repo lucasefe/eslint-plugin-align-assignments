@@ -18,7 +18,7 @@ const RuleTester = require('eslint').RuleTester;
 // Tests
 // ------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2017 } });
+const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2021 } });
 
 
 ruleTester.run('align-assignments', rule, {
@@ -415,7 +415,10 @@ ruleTester.run('align-assignments', rule, {
         'J   *= 1',
         'K   -= 1',
         'L   += 1',
-        'M    = 1'
+        'M  ||= 1',
+        'N  &&= 1',
+        'O  ??= 1',
+        'P    = 1'
       ])
     }
   ],
@@ -493,7 +496,10 @@ ruleTester.run('align-assignments', rule, {
         'J *= 1',
         'K -= 1',
         'L += 1',
-        'M = 1'
+        'M ||= 1',
+        'N &&= 1',
+        'O ??= 1',
+        'P = 1'
       ]),
       output: code([
         'A >>>= 1',
@@ -508,7 +514,10 @@ ruleTester.run('align-assignments', rule, {
         'J   *= 1',
         'K   -= 1',
         'L   += 1',
-        'M    = 1'
+        'M  ||= 1',
+        'N  &&= 1',
+        'O  ??= 1',
+        'P    = 1'
       ]),
       errors: [{ message: 'This group of assignments is not aligned' }]
     }
