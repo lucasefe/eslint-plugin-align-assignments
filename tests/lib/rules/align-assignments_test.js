@@ -109,6 +109,18 @@ ruleTester.run('align-assignments', rule, {
         'for (let i = outArray.length - 1; i >= 0; i--)',
         '  out += outArray[i].toString(toBase);'
       ])
+    },
+    {
+      code: code([
+        'const { foo = ({}) } = {}',
+        'const bar            = {}'
+      ])
+    },
+    {
+      code: code([
+        'const { foo = {} } = {}',
+        'const bar          = {}'
+      ])
     }
   ],
   invalid: [
@@ -314,7 +326,47 @@ ruleTester.run('align-assignments', rule, {
       errors: [
         { message: 'This group of assignments is not aligned' }
       ]
+    },
+    {
+      code: code([
+        'const { foo = ({}) } = {}',
+        'const bar = {}'
+      ]),
+      output: code([
+        'const { foo = ({}) } = {}',
+        'const bar            = {}'
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
+    },
+    {
+      code: code([
+        'const { foo = {} } = {}',
+        'const bar = {}'
+      ]),
+      output: code([
+        'const { foo = {} } = {}',
+        'const bar          = {}'
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
+    },
+    {
+      code: code([
+        'const { foo = {} } = {}',
+        'const bar   = {}'
+      ]),
+      output: code([
+        'const { foo = {} } = {}',
+        'const bar          = {}'
+      ]),
+      errors: [
+        { message: 'This group of assignments is not aligned' }
+      ]
     }
+
   ]
 });
 
